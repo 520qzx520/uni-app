@@ -68,7 +68,7 @@ export default {
 				this.swiperList = res.message;
 				// console.log(res);
 			} catch (e) {
-				return uni.$showMsg(e);
+				return uni.$showMsg();
 			}
 		},
 		// 获取分类导航数据列表
@@ -106,10 +106,10 @@ export default {
 					})
 				})
 				this.floorList = res.message;
-				console.log(res);
+				// console.log(res);
 			} catch (e) {
 				console.log(e);
-				this.$showMsg();
+				return uni.$showMsg();
 			}
 		}
 	}
