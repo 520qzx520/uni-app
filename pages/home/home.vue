@@ -1,5 +1,7 @@
 <template>
 	<view>
+		<!-- 搜索 -->
+		<view class="search-box"><my-search @click="goToSearch"></my-search></view>
 		<!-- 轮播图区域 -->
 		<!-- 圆点、自动轮播、间隔、一张图从开始到结束用的时间、循环 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
@@ -22,15 +24,14 @@
 				<image :src="item.floor_title.image_src" class="floor-title"></image>
 				<!-- 图片 -->
 				<view class="floor-img-box">
-					<!-- 左侧大盒子   mode="widthFix"  自适应--> 
-					<navigator  class="left-img-box" :url="item.product_list[0].url">
-						<image mode="widthFix" :src="item.product_list[0].image_src" :style="{ width: item.product_list[0].image_width + 'rpx' }">	
-						</image>
+					<!-- 左侧大盒子   mode="widthFix"  自适应-->
+					<navigator class="left-img-box" :url="item.product_list[0].url">
+						<image mode="widthFix" :src="item.product_list[0].image_src" :style="{ width: item.product_list[0].image_width + 'rpx' }"></image>
 					</navigator>
 					<!-- 右侧4个图片 -->
 					<view class="right-img-box">
-						<navigator class="right-img-item" v-for="(item2,i2) in item.product_list" :key="i2" v-if="i2!==0" :url="item2.url">
-							<image :src="item2.image_src" mode="widthFix" :style="{width:item2.image_width + 'rpx'}"></image>
+						<navigator class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2" v-if="i2 !== 0" :url="item2.url">
+							<image :src="item2.image_src" mode="widthFix" :style="{ width: item2.image_width + 'rpx' }"></image>
 						</navigator>
 					</view>
 				</view>
@@ -99,24 +100,36 @@ export default {
 		async getFloorList() {
 			try {
 				const { data: res } = await uni.$http.get(`/api/public/v1/home/floordata`);
-				// 对数据进行处理				
-				res.message.forEach(floor=>{
-					floor.product_list.forEach(prod=>{
-						prod.url = '/subpkg/goods_list/goods_list?' +  prod.navigator_url.split('?')[1]
-					})
-				})
+				// 对数据进行处理
+				res.message.forEach(floor => {
+					floor.product_list.forEach(prod => {
+						prod.url = '/subpkg/goods_list/goods_list?' + prod.navigator_url.split('?')[1];
+					});
+				});
 				this.floorList = res.message;
 				// console.log(res);
 			} catch (e) {
 				console.log(e);
 				return uni.$showMsg();
 			}
+		},
+		// 点击跳转到搜索页面
+		goToSearch() {
+			uni.navigateTo({
+				url: '/subpkg/search/search'
+			});
 		}
 	}
 };
 </script>
 
 <style lang="scss">
+// 搜索
+.search-box {
+	position: sticky;
+	top: 0;
+	z-index: 999;
+}
 // 轮播图
 swiper {
 	// 单位为rpx
@@ -147,12 +160,12 @@ swiper {
 		width: 100%;
 		display: flex;
 	}
-		
-	.floor-img-box{
+
+	.floor-img-box {
 		display: flex;
 		padding-left: 10rpx;
-			
-		.right-img-box{
+
+		.right-img-box {
 			display: flex;
 			justify-content: space-around;
 			flex-wrap: wrap;

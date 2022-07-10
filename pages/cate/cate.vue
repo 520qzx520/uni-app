@@ -1,6 +1,8 @@
 <template>
-	<view>
+	<view><!-- 自定义搜索组件 不用引入直接使用 -->
+			<my-search @click='goToSearch'></my-search>
 		<view class="scroll-view-container">
+			
 			<!-- 左侧的滑动区 -->
 			<scroll-view scroll-y="true" class="left-scroll-view" :style="{height: wh+'px'}">
 				<block v-for="(item,i) in cateList"  :key="item.cat_id">
@@ -66,7 +68,7 @@
 					this.cateList = res.message
 					// 二级
 					this.cateLevel2 = res.message[0].children
-				    console.log(res)
+				    // console.log(res)
 				}catch(e){
 					console.log(e)
 					return uni.$showMsg();
@@ -87,6 +89,13 @@
 				uni.navigateTo({
 					url:'/subpkg/goods_list/goods_list?cid=' + id
 				})
+			},
+			// 点击跳转到search页面
+			goToSearch(){
+				uni.navigateTo({
+					url:'/subpkg/search/search'
+				})
+
 			}
 		}
 	}
