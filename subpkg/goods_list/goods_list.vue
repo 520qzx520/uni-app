@@ -62,7 +62,6 @@ export default {
 			})
 		}
 	},
-	
 	// 上拉加载（内置api）
 	onReachBottom(){ 
 		if(this.queryObj.pagenum * this.queryObj.pagesize >= this.total){
