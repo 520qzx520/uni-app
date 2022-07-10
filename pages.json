@@ -1,5 +1,5 @@
 {
-	"pages": [ {
+	"pages": [{
 		"path": "pages/home/home",
 		"style": {
 			// "navigationBarTitleText": "",
@@ -29,45 +29,39 @@
 
 	}],
 	// 分包（也就是子页面）
-	"subPackages": [
-		{
-			"root":"subpkg",//设置根目录
-			// 页面
-			"pages": [
-			{
-                    "path" : "goods_detail/goods_detail",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-                ,{
-                    "path" : "goods_list/goods_list",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-                ,{
-                    "path" : "search/search",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-            ]
-		}
-	],
+	"subPackages": [{
+		"root": "subpkg", //设置根目录
+		// 页面
+		"pages": [{
+			"path": "goods_detail/goods_detail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "goods_list/goods_list",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"onReachBottomDistance": 150, //上拉加载的距离,150px就加载更多
+				"enablePullDownRefresh": true,
+				"backgroundColor": "#F8F8F8"
+			}
+
+		}, {
+			"path": "search/search",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}]
+	}],
 	// 全局的样式配置
 	"globalStyle": {
 		"navigationBarTextStyle": "white", //顶部字体颜色
-		"navigationBarTitleText": "黑马优购",//顶部标题
+		"navigationBarTitleText": "黑马优购", //顶部标题
 		"navigationBarBackgroundColor": "#c00000", //顶部背景颜色
 		"backgroundColor": "#FFFFFF",
 		"app-plus": {
@@ -79,28 +73,27 @@
 		// 选中的颜色
 		"selectedColor": "#c00000",
 		// 导航栏配置
-		"list": [
-			{
-				"pagePath":"pages/home/home", //路径
-				"text":"首页",//标题
-				"iconPath": "static/tab_icons/home.png",//图标
-				"selectedIconPath": "static/tab_icons/home-active.png"//激活的图标
+		"list": [{
+				"pagePath": "pages/home/home", //路径
+				"text": "首页", //标题
+				"iconPath": "static/tab_icons/home.png", //图标
+				"selectedIconPath": "static/tab_icons/home-active.png" //激活的图标
 			},
 			{
-				"pagePath":"pages/cate/cate",
-				"text":"分类",
+				"pagePath": "pages/cate/cate",
+				"text": "分类",
 				"iconPath": "static/tab_icons/cate.png",
 				"selectedIconPath": "static/tab_icons/cate-active.png"
 			},
 			{
-				"pagePath":"pages/cart/cart",
-				"text":"购物车",
+				"pagePath": "pages/cart/cart",
+				"text": "购物车",
 				"iconPath": "static/tab_icons/cart.png",
 				"selectedIconPath": "static/tab_icons/cart-active.png"
 			},
 			{
-				"pagePath":"pages/my/my",
-				"text":"我的",
+				"pagePath": "pages/my/my",
+				"text": "我的",
 				"iconPath": "static/tab_icons/my.png",
 				"selectedIconPath": "static/tab_icons/my-active.png"
 			}

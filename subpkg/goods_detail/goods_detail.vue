@@ -1,6 +1,6 @@
 <template>
 	<view>
-		qzxjlxzyq
+		权重先
 	</view>
 </template>
 
