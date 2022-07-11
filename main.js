@@ -17,7 +17,7 @@ $http.beforeRequest = function (options) {
   })
 }
 // 配置请求根路径
-$http.baseUrl = 'https://www.uinav.com'
+$http.baseUrl = 'http://www.uinav.com'
 
 // 相应拦截器
 // 请求完成之后做一些事情
