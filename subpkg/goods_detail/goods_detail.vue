@@ -29,7 +29,30 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapGetters } from 'vuex';
 export default {
+	computed: {
+		...mapState('Cart', ['cart']),
+		...mapGetters('Cart', ['total'])
+	},
+	watch: {
+		// 监听total变化 // 定义 total 侦听器，指向一个配置对象
+		total:{
+			 // handler 属性用来定义侦听器的 function 处理函数
+			handler(newValue) {
+			console.log(newValue)
+			// 2. 通过数组的 find() 方法，找到购物车按钮的配置对象
+			const findResult = this.options.find(x => x.text === '购物车');
+			if (findResult) {
+				 // 3. 动态为购物车按钮的 info 属性赋值
+				findResult.info = newValue;
+			}
+		},
+		  // immediate 属性用来声明此侦听器，是否在页面初次加载完毕后立即调用
+		immediate:true
+		}
+	},
+
 	data() {
 		return {
 			// 详情数据
@@ -48,7 +71,7 @@ export default {
 				{
 					icon: 'cart',
 					text: '购物车',
-					info: 2
+					info: 0
 				}
 			],
 			buttonGroup: [
@@ -70,6 +93,8 @@ export default {
 		this.getGoodsDetail(goods_id);
 	},
 	methods: {
+		// 把 m_cart 模块中的 addToCart 方法映射到当前页面使用
+		...mapMutations('Cart', ['addToCart']),
 		// 获取详情数据
 		async getGoodsDetail(goods_id) {
 			try {
@@ -92,18 +117,33 @@ export default {
 		},
 		// 点击商品导航 Nav 判断
 		onClick(e) {
-			if(e.content.text === '购物车'){
+			if (e.content.text === '购物车') {
 				uni.switchTab({
-					url:'/pages/cart/cart'
-				})
+					url: '/pages/cart/cart'
+				});
 			}
-		
 		},
+		// 点击购物车
 		buttonClick(e) {
 			console.log(e);
-			this.options[2].info++;
+			if (e.content.text === '加入购物车') {
+				// 2. 组织一个商品的信息对象
+				const goods = {
+					goods_id: this.goods_info.goods_id, // 商品的Id
+					goods_name: this.goods_info.goods_name, // 商品的名称
+					goods_price: this.goods_info.goods_price, // 商品的价格
+					goods_count: 1, // 商品的数量
+					goods_small_logo: this.goods_info.goods_small_logo, // 商品的图片
+					goods_state: true // 商品的勾选状态
+				};
+
+				this.addToCart(goods);
+
+				// 购物车图标加一
+				// this.options[2].info++;
+			}
 		}
-	}
+	} 
 };
 </script>
 
